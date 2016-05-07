@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		596E1AA91CDD194E003CA257 /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 596E1AA81CDD194E003CA257 /* main.cpp */; };
+		5980732F1CDE10C2009D7B7D /* libzmq.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 5980732E1CDE10C2009D7B7D /* libzmq.dylib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -25,6 +26,7 @@
 /* Begin PBXFileReference section */
 		596E1AA51CDD194E003CA257 /* RaftImp */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = RaftImp; sourceTree = BUILT_PRODUCTS_DIR; };
 		596E1AA81CDD194E003CA257 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
+		5980732E1CDE10C2009D7B7D /* libzmq.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libzmq.dylib; path = ../../../../usr/local/lib/libzmq.dylib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -32,6 +34,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				5980732F1CDE10C2009D7B7D /* libzmq.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -41,6 +44,7 @@
 		596E1A9C1CDD194E003CA257 = {
 			isa = PBXGroup;
 			children = (
+				5980732E1CDE10C2009D7B7D /* libzmq.dylib */,
 				596E1AA71CDD194E003CA257 /* RaftImp */,
 				596E1AA61CDD194E003CA257 /* Products */,
 			);
@@ -209,6 +213,8 @@
 		596E1AAD1CDD194E003CA257 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -216,6 +222,8 @@
 		596E1AAE1CDD194E003CA257 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				HEADER_SEARCH_PATHS = /usr/local/include;
+				LIBRARY_SEARCH_PATHS = /usr/local/lib;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
@@ -239,6 +247,7 @@
 				596E1AAE1CDD194E003CA257 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
