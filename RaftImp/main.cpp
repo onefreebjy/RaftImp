@@ -14,23 +14,50 @@
 
 using namespace std;
 
-#define MAX_RUNTIME 20
+#define MAX_RUNTIME 10
+#define FOLLOWER 0
+#define CANDIDATE 1
+#define LEADER 2
+
+int state;
+
+int leaderElection(zmq::context_t *context);
+int followerRoutine(zmq::context_t *context);
+
+int main(int argc, const char * argv[]) {
+    zmq::context_t context(1);
+    while(1){
+        leaderElection(&context);
+    }
+        return 0;
+}
 
 static void watchdog(int signro){
     cout<<"alarm"<<endl;
-    exit(signro);
+    //exit(signro);
 }
 
-int main(int argc, const char * argv[]) {
-    //  Prepare our context and socket
-    zmq::context_t context (1);
+int leaderElection(zmq::context_t *context){
+    //  Set state
+    state = FOLLOWER;
     
+    //  Set timeout
+    
+    //  Receive from candidate
+    
+    
+    
+    followerRoutine(context);
+    return 0;
+}
+
+int followerRoutine(zmq::context_t *context){
     //  Bind to a port to wait for request from client
-    zmq::socket_t receiver (context, ZMQ_REP);
+    zmq::socket_t receiver (*context, ZMQ_REP);
     receiver.bind ("tcp://127.0.0.1:5555");
     
     //  Connect to publisher
-    zmq::socket_t subscriber(context, ZMQ_SUB);
+    zmq::socket_t subscriber(*context, ZMQ_SUB);
     subscriber.connect("tcp://localhost:5556");
     subscriber.setsockopt(ZMQ_SUBSCRIBE, "10001", 5);
     
@@ -39,12 +66,12 @@ int main(int argc, const char * argv[]) {
         {(void *)receiver, 0, ZMQ_POLLIN, 0},
         {(void *)subscriber, 0, ZMQ_POLLIN, 0}
     };
+    cout<<"1"<<endl;
     
-    //  Set up timer
     if (signal(SIGALRM, watchdog) == SIG_ERR)
         exit(2);
     alarm(MAX_RUNTIME);
-    
+
     while (1){
         zmq::message_t message;
         zmq::poll(items, 2, -1);
@@ -55,7 +82,7 @@ int main(int argc, const char * argv[]) {
             char buf[15];
             memcpy(buf, message.data(), message.size());
             cout << "Received " << buf << endl;
-    
+            
             //  Send reply back to client
             strcpy(buf, "World");
             zmq::message_t reply (strlen(buf));
